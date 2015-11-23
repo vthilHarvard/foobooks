@@ -28,3 +28,4 @@ Route::get('/practice', function() {
 
 });
 Route::get('/books/show/{title?}', 'BookController@getShow');
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
