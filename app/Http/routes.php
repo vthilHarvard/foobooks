@@ -16,6 +16,10 @@ Route::get('/', function () {
     //return "Hello foobooks";
     return view('index');
 });
+
+//Route::get('/practice', 'PracticeController');
+Route::controller('/practice','PracticeController');
+/*
 Route::get('/practice', function() {
 
     echo '<h1>Hello World!</h1>';
@@ -27,7 +31,8 @@ Route::get('/practice', function() {
 
     return 'Practice';
 
-});
+}); */
+
 Route::get('/books/show/{title?}', 'BookController@getShow');
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 Route::get('/books', 'BookController@getIndex');
