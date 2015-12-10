@@ -77,7 +77,7 @@ class PracticeController extends Controller
         $book_to_update->save();
 
         $books = Book::orderBy('id', 'DESC')->get();
-        dump($books);
+        dump($books->toArray());
     }
 
     function getExample7()
