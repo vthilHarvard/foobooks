@@ -16,11 +16,17 @@
     <link href='/css/foobooks.css' rel='stylesheet'>
 
     {{-- Yield any page specific CSS files or anything else you might want in the <head> --}}
+
     @yield('head')
 
 </head>
 <body>
-
+    @if(\Session::has('flash_message'))
+    <div class='flash_message'>
+        {{\Session::get('flash_message')}}
+    </div>
+    @endif
+    
     <header>
       <a href="/">
         <img

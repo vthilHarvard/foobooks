@@ -73,19 +73,52 @@ class PracticeController extends Controller
         //UPDATE
         $book = new Book();
         $book_to_update = $book->find(1);
-        $book_to_update->title = "Green Eggs and Ham";
+        $book_to_update->title = "TestCase";
         $book_to_update->save();
+
+        $books = Book::orderBy('id', 'DESC')->get();
+        dump($books);
     }
 
     function getExample7()
     {
-        $book = new Book();
+        /*$book = new Book();
         $results = $book->where('published', '>', 1950)->get();
         foreach($results as $result)
         {
             echo $result->title.'<br/>';
         }
         echo 'Number found is '.count($results).'<br/>';
-        return 'example7';
+        return 'example7';*/
+        $author = new \App\Author;
+        $author->first_name = 'J.K';
+        $author->last_name = 'Rowling';
+        $author->bio_url = 'https://en.wikipedia.org/wiki/J._K._Rowling';
+        $author->birth_year = '1965';
+        $author->save();
+        dump($author->toArray());
+
+        $book = new \App\Book;
+        $book->title = "Harry Potter and the Philosopher's Stone";
+        $book->published = 1997;
+        $book->cover = 'http://prodimage.images-bn.com/pimages/9781582348254_p0_v1_s118x184.jpg';
+        $book->purchase_link = 'http://www.barnesandnoble.com/w/harrius-potter-et-philosophi-lapis-j-k-rowling/1102662272?ean=9781582348254';
+        $book->author()->associate($author); # <--- Associate the author with this book
+        $book->save();
+        dump($book->toArray());
+
+        return 'Example 7';
+    }
+
+    function getExample8()
+    {
+        $book = \App\Book::orderBy('id', 'DESC')->first();
+        dump($book->toArray());
+        echo 'The book title is'.$book->title.'<br/>';
+        $book = \App\Book::first();
+        $author = $book->author;
+        echo $book->title.' was written by '.$author->first_name.' '.$author->last_name;
+        dump($book->toArray());
+        return 'Example 8';
     }
 }

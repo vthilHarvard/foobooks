@@ -16,9 +16,10 @@ Route::get('/', function () {
     //return "Hello foobooks";
     return view('index');
 });
-
+Route::get('/books', 'BookController@getIndex');
 //Route::get('/practice', 'PracticeController');
 Route::controller('/practice','PracticeController');
+
 /*
 Route::get('/practice', function() {
 
@@ -33,13 +34,26 @@ Route::get('/practice', function() {
 
 }); */
 
-Route::get('/books/show/{title?}', 'BookController@getShow');
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 Route::get('/books', 'BookController@getIndex');
 Route::get('/books/show/{title}', 'BookController@getShow');
 Route::get('/books/show/{title?}', 'BookController@getShow');
 Route::get('/books/create', 'BookController@getCreate');
 Route::post('/books/create', 'BookController@postCreate');
+Route::get('/books/edit/{id?}', 'BookController@getEdit');
+Route::post('/books/edit', 'BookController@postEdit');
+/*----------------------------------------------------
+Debugging/Local/Misc
+-----------------------------------------------------*/
+if(App::environment('local')) {
+    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+    Route::get('/drop', function() {
+        DB::statement('DROP database foobooks');
+        DB::statement('CREATE database foobooks');
+        return 'Dropped foobooks; created foobooks.';
+    });
+}
+
 Route::get('/debug', function() {
 
     echo '<pre>';
